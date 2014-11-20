@@ -1,9 +1,17 @@
 package com.ftoggleit;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * Root resource (exposed at "myresource" path)
@@ -20,6 +28,23 @@ public class MyResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String getIt() {
+        System.out.println("env: " + System.getProperty("env"));
+        System.out.println("schema: " + System.getProperty("datasource.schema"));
+        Context initContext = null;
+        try {
+            initContext = new InitialContext();
+            Context envContext = (Context) initContext.lookup("java:comp/env");
+            DataSource ds = (DataSource) envContext.lookup("jdbc/datasource");
+            Connection conn = ds.getConnection();
+            Statement statement = conn.createStatement();
+            String sql = "select username, email from users";
+            ResultSet rs = statement.executeQuery(sql);
+            System.out.println(rs);
+        } catch (NamingException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return "Hello, Heroku!";
     }
 }

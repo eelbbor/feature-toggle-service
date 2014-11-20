@@ -11,6 +11,10 @@ able to deploy to Heroku.
 
 ```$ mvn clean package jetty:run```
 
+###In order to debug it is necessary to export maven options
+
+```$ export MAVEN_OPTS="-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,address=5005,server=y,suspend=n"```
+
 ## Run Tests
 
 ```$ mvn test```

@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd">
+
+<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+    <New id="jdbcdatasource" class="org.eclipse.jetty.plus.jndi.Resource">
+        <Arg></Arg>
+        <Arg>jdbc/datasource</Arg>
+        <Arg>
+            <New class="com.zaxxer.hikari.HikariDataSource">
+                <Arg>
+                    <New class="com.zaxxer.hikari.HikariConfig">
+                        <Set name="minimumIdle">5</Set>
+                        <Set name="maximumPoolSize">10</Set>
+                        <Set name="dataSourceClassName">com.mysql.jdbc.jdbc2.optional.MysqlDataSource</Set>
+
+                        <Set name="username">${jdbc.user}</Set>
+                        <Set name="password">${jdbc.password}</Set>
+                        <Call name="addDataSourceProperty">
+                            <Arg>url</Arg>
+                            <Arg>${jdbc.url}</Arg>
+                        </Call>
+                        <Call name="addDataSourceProperty">
+                            <Arg>cachePrepStmts</Arg>
+                            <Arg>true</Arg>
+                        </Call>
+                        <Call name="addDataSourceProperty">
+                            <Arg>useServerPrepStmts</Arg>
+                            <Arg>true</Arg>
+                        </Call>
+                        <Call name="addDataSourceProperty">
+                            <Arg>prepStmtCacheSize</Arg>
+                            <Arg>250</Arg>
+                        </Call>
+                        <Call name="addDataSourceProperty">
+                            <Arg>prepStmtCacheSqlLimit</Arg>
+                            <Arg>2048</Arg>
+                        </Call>
+                    </New>
+                </Arg>
+            </New>
+        </Arg>
+    </New>
+</Configure>

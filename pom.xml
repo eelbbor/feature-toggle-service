@@ -78,12 +78,27 @@
         <finalName>feature-toggle-service</finalName>
         <resources>
             <resource>
-                <directory>${basedir}/web-inf-config/</directory>
+                <directory>${basedir}/src/webapp-config/WEB-INF/</directory>
                 <filtering>true</filtering>
                 <targetPath>${basedir}/src/main/webapp/WEB-INF/</targetPath>
             </resource>
         </resources>
         <plugins>
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>2.6.1</version>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>${basedir}/src/main/webapp/WEB-INF/</directory>
+                            <includes>
+                                <include>**/*.xml</include>
+                            </includes>
+                            <followSymlinks>false</followSymlinks>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

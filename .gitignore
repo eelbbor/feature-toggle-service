@@ -2,4 +2,4 @@ feature-toggle-service.iml
 feature-toggle-service.ipr
 feature-toggle-service.iws
 target/
-src/main/webapp/WEB-INF/jetty-env.xml
+src/main/webapp/WEB-INF/

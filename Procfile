@@ -1,1 +1,1 @@
-web: java -cp target/classes:target/dependency/* com.ftoggleit.heroku.Main
+web: java -cp target/classes:target/dependency/* com.featuretoggle.heroku.Main

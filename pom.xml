@@ -98,9 +98,14 @@
         <finalName>feature-toggle-service</finalName>
         <resources>
             <resource>
-                <directory>${basedir}/src/webapp-config/WEB-INF/</directory>
+                <directory>src/config/webapp/WEB-INF/</directory>
                 <filtering>true</filtering>
                 <targetPath>${basedir}/src/main/webapp/WEB-INF/</targetPath>
+            </resource>
+            <resource>
+                <directory>src/config/resources/</directory>
+                <filtering>true</filtering>
+                <targetPath>${basedir}/src/main/resources/</targetPath>
             </resource>
         </resources>
         <plugins>
@@ -164,8 +169,16 @@
                 <artifactId>liquibase-maven-plugin</artifactId>
                 <version>${liquibase.version}</version>
                 <configuration>
-
+                    <propertyFile>${basedir}/src/main/resources/liquibase.properties</propertyFile>
                 </configuration>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>update</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
@@ -182,5 +195,7 @@
         <testng.version>6.8.8</testng.version>
         <mockito.version>1.10.8</mockito.version>
         <reflections.version>0.9.9-RC1</reflections.version>
+
+        <liquibase.contexts></liquibase.contexts>
     </properties>
 </project>

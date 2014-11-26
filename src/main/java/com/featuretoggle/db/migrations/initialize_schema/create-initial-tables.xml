@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+    <changeSet author="rlee" id="create-account-table">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT count(*) FROM pg_tables WHERE tablename='account'</sqlCheck>
+        </preConditions>
+        <sql>
+            CREATE TABLE account
+            (
+            id UUID NOT NULL,
+            name VARCHAR(256) NOT NULL,
+            CONSTRAINT pk_account_id PRIMARY KEY (id)
+            )
+        </sql>
+    </changeSet>
+
+    <changeSet author="rlee" id="create-toggle-table">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT count(*) FROM pg_tables WHERE tablename='toggle'</sqlCheck>
+        </preConditions>
+        <sql>
+            CREATE TABLE toggle
+            (
+            id uuid NOT NULL,
+            account_id uuid NOT NULL,
+            name character varying(256),
+            is_enabled numeric(1,0) DEFAULT 0,
+            scope_id uuid,
+            CONSTRAINT pk_toggle_id PRIMARY KEY (id),
+            CONSTRAINT fk_toggle_account_id FOREIGN KEY (account_id)
+            REFERENCES account (id) MATCH SIMPLE
+            ON UPDATE NO ACTION ON DELETE NO ACTION
+            )
+        </sql>
+    </changeSet>
+</databaseChangeLog>

@@ -13,7 +13,7 @@ able to deploy to Heroku.
 
 ```$ mvn clean package jetty:run```
 
-#### Add a settings.xml file to the ~/.m2 directory to configure MySql datasource.  Sample file:
+#### Add a settings.xml file to the ~/.m2 directory to configure datasource.  Sample file:
 
 <pre>
 <code>

@@ -32,9 +32,12 @@ able to deploy to Heroku.
                 &lt;activeByDefault&gt;true&lt;/activeByDefault&gt;
             &lt;/activation&gt;
             &lt;properties&gt;
-                &lt;jdbc.url&gt;jdbc:mysql://localhost:3306/ft_dev&lt;/jdbc.url&gt;
+                &lt;jdbc.url&gt;jdbc:postgresql://localhost:3306/ft_dev&lt;/jdbc.url&gt;
                 &lt;jdbc.user&gt;ft_dev&lt;/jdbc.user&gt;
                 &lt;jdbc.password&gt;ft_dev_password&lt;/jdbc.password&gt;
+                &lt;jdbc.host&gt;localhost&lt;/jdbc.host&gt;
+                &lt;jdbc.port&gt;5432&lt;/jdbc.port&gt;
+                &lt;jdbc.schema&gt;ft_dev&lt;/jdbc.schema&gt;
             &lt;/properties&gt;
         &lt;/profile&gt;
     &lt;/profiles&gt;

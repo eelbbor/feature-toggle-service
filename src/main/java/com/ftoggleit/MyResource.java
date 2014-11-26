@@ -35,7 +35,7 @@ public class MyResource {
             DataSource ds = (DataSource) envContext.lookup("jdbc/datasource");
             Connection conn = ds.getConnection();
             Statement statement = conn.createStatement();
-            String sql = "select username, email from users";
+            String sql = "select * from toggle";
             ResultSet rs = statement.executeQuery(sql);
             System.out.println(rs);
         } catch (NamingException e) {

@@ -2,6 +2,7 @@
 <!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd">
 
 <Configure class="org.eclipse.jetty.webapp.WebAppContext">
+    <!--http://jdbc.postgresql.org/documentation/80/ds-ds.html-->
     <New id="jdbcdatasource" class="org.eclipse.jetty.plus.jndi.Resource">
         <Arg></Arg>
         <Arg>jdbc/datasource</Arg>
@@ -11,29 +12,24 @@
                     <New class="com.zaxxer.hikari.HikariConfig">
                         <Set name="minimumIdle">5</Set>
                         <Set name="maximumPoolSize">10</Set>
-                        <Set name="dataSourceClassName">com.mysql.jdbc.jdbc2.optional.MysqlDataSource</Set>
+                        <Set name="dataSourceClassName">org.postgresql.ds.PGSimpleDataSource</Set>
 
-                        <Set name="username">${jdbc.user}</Set>
+                        <Call name="addDataSourceProperty">
+                            <Arg>user</Arg>
+                            <Arg>${jdbc.user}</Arg>
+                        </Call>
                         <Set name="password">${jdbc.password}</Set>
                         <Call name="addDataSourceProperty">
-                            <Arg>url</Arg>
-                            <Arg>${jdbc.url}</Arg>
+                            <Arg>serverName</Arg>
+                            <Arg>${jdbc.host}</Arg>
                         </Call>
                         <Call name="addDataSourceProperty">
-                            <Arg>cachePrepStmts</Arg>
-                            <Arg>true</Arg>
+                            <Arg>portNumber</Arg>
+                            <Arg>${jdbc.port}</Arg>
                         </Call>
                         <Call name="addDataSourceProperty">
-                            <Arg>useServerPrepStmts</Arg>
-                            <Arg>true</Arg>
-                        </Call>
-                        <Call name="addDataSourceProperty">
-                            <Arg>prepStmtCacheSize</Arg>
-                            <Arg>250</Arg>
-                        </Call>
-                        <Call name="addDataSourceProperty">
-                            <Arg>prepStmtCacheSqlLimit</Arg>
-                            <Arg>2048</Arg>
+                            <Arg>databaseName</Arg>
+                            <Arg>${jdbc.schema}</Arg>
                         </Call>
                     </New>
                 </Arg>

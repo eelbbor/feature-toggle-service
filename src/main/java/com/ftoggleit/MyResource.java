@@ -28,8 +28,6 @@ public class MyResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String getIt() {
-        System.out.println("env: " + System.getProperty("env"));
-        System.out.println("schema: " + System.getProperty("datasource.schema"));
         Context initContext = null;
         try {
             initContext = new InitialContext();

@@ -1,25 +1,28 @@
 package com.ftoggleit.dao;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class AbstractDAO {
     public static final String SCHEMA_NAME = System.getenv("schema");
     private Connection connection;
 
-
     public Connection getConnection() {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
             if (connection == null) {
-                connection = DriverManager.getConnection("jdbc:mysql://localhost/hmkcode?user=root&password=");
+                InitialContext context = new InitialContext();
+                DataSource dataSource = (DataSource) context.lookup("jdbc/datasource");
+                connection = dataSource.getConnection();
             }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            return connection;
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (NamingException e) {
+            e.printStackTrace();
         }
-        return connection;
+        return null;
     }
 }

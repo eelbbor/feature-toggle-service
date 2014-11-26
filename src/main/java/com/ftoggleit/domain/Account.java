@@ -1,4 +1,9 @@
 package com.ftoggleit.domain;
 
-public class Account {
+import java.util.UUID;
+
+public class Account extends Identifiable {
+    public Account(UUID id) {
+        super(id);
+    }
 }

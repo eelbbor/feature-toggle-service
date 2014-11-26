@@ -4,6 +4,7 @@ import org.testng.annotations.Test;
 
 import java.util.UUID;
 
+import static java.util.UUID.randomUUID;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertNull;
@@ -11,54 +12,56 @@ import static org.testng.Assert.assertTrue;
 import static org.testng.Assert.fail;
 
 @Test
-public class FeatureToggleTest {
-    public void shouldThrowExceptionForNullId() {
+public class ToggleTest {
+    public void shouldThrowExceptionForNullAccountId() {
         try {
-            new FeatureToggle(null, null);
+            new Toggle(randomUUID(), null, null);
             fail("Should have throw IllegalArgumentException for null ID");
         } catch (IllegalArgumentException e) {
         }
     }
 
     public void shouldSuccessfullyCreate() {
-        UUID id = UUID.randomUUID();
-        FeatureToggle ft = new FeatureToggle(id, "foo");
+        UUID id = randomUUID();
+        UUID accountId = randomUUID();
+        Toggle ft = new Toggle(id, accountId, "foo");
         assertEquals(ft.getId(), id);
+        assertEquals(ft.getAccountId(), accountId);
         assertEquals(ft.getName(), "foo");
     }
 
     public void shouldDefaultToDisabled() {
-        FeatureToggle ft = createFeatureToggle();
+        Toggle ft = createToggle();
         assertFalse(ft.isEnabled());
     }
 
     public void shouldHonorEnabledState() {
-        FeatureToggle ft = new FeatureToggle(UUID.randomUUID(), "foo", true);
+        Toggle ft = new Toggle(randomUUID(), randomUUID(), "foo", true);
         assertTrue(ft.isEnabled());
     }
 
     public void shouldHonorScopeId() {
-        UUID scopeId = UUID.randomUUID();
-        FeatureToggle ft = new FeatureToggle(UUID.randomUUID(), "foo", scopeId);
+        UUID scopeId = randomUUID();
+        Toggle ft = new Toggle(randomUUID(), randomUUID(), "foo", scopeId);
         assertEquals(ft.getScopeId(), scopeId);
     }
 
     public void shouldUpdateName() {
-        FeatureToggle ft = createFeatureToggle();
+        Toggle ft = createToggle();
         assertFalse(ft.getName().equals("baz"));
         ft.setName("baz");
         assertEquals(ft.getName(), "baz");
     }
 
     public void shouldEnable() {
-        FeatureToggle ft = createFeatureToggle();
+        Toggle ft = createToggle();
         assertFalse(ft.isEnabled());
         ft.setEnabled(true);
         assertTrue(ft.isEnabled());
     }
 
     public void shouldDisable() {
-        FeatureToggle ft = new FeatureToggle(UUID.randomUUID(), "foo", true);
+        Toggle ft = new Toggle(randomUUID(), randomUUID(), "foo", true);
         assertTrue(ft.isEnabled());
 
         ft.setEnabled(false);
@@ -66,16 +69,16 @@ public class FeatureToggleTest {
     }
 
     public void shouldUpdateScopeId() {
-        FeatureToggle ft = createFeatureToggle();
+        Toggle ft = createToggle();
         assertNull(ft.getScopeId());
 
-        UUID scopeId = UUID.randomUUID();
+        UUID scopeId = randomUUID();
         ft.setScopeId(scopeId);
         assertEquals(ft.getScopeId(), scopeId);
     }
 
-    private FeatureToggle createFeatureToggle() {
-        FeatureToggle ft = new FeatureToggle(UUID.randomUUID(), "foo");
+    private Toggle createToggle() {
+        Toggle ft = new Toggle(randomUUID(), randomUUID(), "foo");
         assertEquals(ft.getName(), "foo");
         return ft;
     }

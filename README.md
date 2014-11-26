@@ -7,6 +7,8 @@ able to deploy to Heroku.
 
 ```$ mvn clean package```
 
+#### NOTE: The files of src/main/webapp/WEB-INF are filtered from src/webapp-config/WEB-INF to enable configuration from local settings files.  Any xml files added directly into main/webapp/WEB-INF are removed during a clean and ignored in git.
+
 ## Run Locally - starts an embedded Jetty server at localhost:8080
 
 ```$ mvn clean package jetty:run```

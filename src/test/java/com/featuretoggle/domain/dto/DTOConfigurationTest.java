@@ -12,7 +12,7 @@ import java.util.Set;
 import static org.testng.Assert.assertTrue;
 
 @Test
-public class DtoIoConfigurationTest {
+public class DTOConfigurationTest {
     private Set<Class<?>> rootElements;
 
     @BeforeClass

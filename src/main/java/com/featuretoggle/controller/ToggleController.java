@@ -2,7 +2,7 @@ package com.featuretoggle.controller;
 
 import com.featuretoggle.domain.Toggle;
 import com.featuretoggle.domain.dto.ToggleDTO;
-import com.featuretoggle.service.ToggleService;
+import com.featuretoggle.service.AccountService;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -20,7 +20,7 @@ import java.util.UUID;
 @Path(ToggleController.PATH_QUALIFIER)
 public class ToggleController {
     public static final String PATH_QUALIFIER = "/toggle/";
-    private ToggleService service;
+    private AccountService service;
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -62,9 +62,9 @@ public class ToggleController {
         return Response.ok(dto).build();
     }
 
-    private ToggleService getService() {
+    private AccountService getService() {
         if(service == null) {
-            service = new ToggleService();
+            service = new AccountService();
         }
         return service;
     }

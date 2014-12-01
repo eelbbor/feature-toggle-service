@@ -13,6 +13,7 @@
                         <Set name="minimumIdle">5</Set>
                         <Set name="maximumPoolSize">10</Set>
                         <Set name="dataSourceClassName">org.postgresql.ds.PGSimpleDataSource</Set>
+                        <Set name="autoCommit">false</Set>
 
                         <Call name="addDataSourceProperty">
                             <Arg>user</Arg>

@@ -9,7 +9,6 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "")
 public class ToggleDTO extends IdentifiableDTO {
     private String accountId;
-    private String scopeId;
     private String name;
     private boolean enabled;
 
@@ -22,7 +21,6 @@ public class ToggleDTO extends IdentifiableDTO {
         super(toggle);
         if (toggle != null) {
             accountId = toggle.getAccountId().toString();
-            scopeId = toggle.getScopeId() == null ? null : toggle.getScopeId().toString();
             name = toggle.getName();
             enabled = toggle.isEnabled();
         }
@@ -39,14 +37,6 @@ public class ToggleDTO extends IdentifiableDTO {
 
     public void setAccountId(String accountId) {
         this.accountId = accountId;
-    }
-
-    public String getScopeId() {
-        return scopeId;
-    }
-
-    public void setScopeId(String scopeId) {
-        this.scopeId = scopeId;
     }
 
     public String getName() {

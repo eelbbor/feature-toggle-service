@@ -6,8 +6,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(name = "")
+@XmlType(name = ToggleDTO.TYPE)
 public class ToggleDTO extends IdentifiableDTO {
+    public static final String TYPE = "toggle";
     private String accountId;
     private String name;
     private boolean enabled;
@@ -24,11 +25,6 @@ public class ToggleDTO extends IdentifiableDTO {
             name = toggle.getName();
             enabled = toggle.isEnabled();
         }
-    }
-
-    @Override
-    protected Class getTypeClass() {
-        return Toggle.class;
     }
 
     public String getAccountId() {

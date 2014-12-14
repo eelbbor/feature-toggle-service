@@ -36,11 +36,11 @@ public class DTOConfigurationTest {
         }
     }
 
-    public void xmlRootElementsMustSetXmlTypeNameToEmptyString() {
-        String errMsg = " must declare the XmlType name to be an empty string";
+    public void xmlRootElementsMustSetXmlTypeNameToBeNonEmptyString() {
+        String errMsg = " must declare the XmlType name to be a non-empty string";
         for (Class<?> element : rootElements) {
             XmlType[] annotationsByType = element.getAnnotationsByType(XmlType.class);
-            assertTrue(annotationsByType.length > 0 && annotationsByType[0].name().isEmpty(), element.getName() + errMsg);
+            assertTrue(annotationsByType.length > 0 && !annotationsByType[0].name().isEmpty(), element.getName() + errMsg);
         }
     }
 }

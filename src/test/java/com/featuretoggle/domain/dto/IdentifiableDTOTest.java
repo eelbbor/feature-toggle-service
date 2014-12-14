@@ -36,10 +36,5 @@ public class IdentifiableDTOTest {
         public TestIdentifiableDTO(Identifiable identifiable) {
             super(identifiable);
         }
-
-        @Override
-        protected Class getTypeClass() {
-            return this.getClass();
-        }
     }
 }

@@ -4,6 +4,7 @@ import com.featuretoggle.domain.Toggle;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import javax.xml.bind.annotation.XmlType;
 import java.util.UUID;
 
 import static org.testng.Assert.assertEquals;
@@ -23,7 +24,9 @@ public class ToggleDTOTest {
     }
 
     public void shouldExposeTypeAsToggle() {
-        assertEquals(dto.getType(), Toggle.class.getSimpleName().toLowerCase());
+        XmlType[] annotationsByType = ToggleDTO.class.getAnnotationsByType(XmlType.class);
+        assertEquals(annotationsByType.length, 1);
+        assertEquals(annotationsByType[0].name(), "toggle");
     }
 
     public void shouldNotAllowForSettingTheAccountId() {

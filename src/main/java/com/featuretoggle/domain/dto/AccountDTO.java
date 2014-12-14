@@ -6,8 +6,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(name = "")
+@XmlType(name = AccountDTO.TYPE)
 public class AccountDTO extends IdentifiableDTO {
+    public static final String TYPE = "account";
     private String name;
 
     //need the default constructor for response IO
@@ -17,14 +18,9 @@ public class AccountDTO extends IdentifiableDTO {
 
     public AccountDTO(Account account) {
         super(account);
-        if(account != null) {
+        if (account != null) {
             this.name = account.getName();
         }
-    }
-
-    @Override
-    protected Class getTypeClass() {
-        return Account.class;
     }
 
     public String getName() {

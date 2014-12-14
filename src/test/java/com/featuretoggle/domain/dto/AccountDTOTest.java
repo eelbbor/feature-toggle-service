@@ -4,6 +4,7 @@ import com.featuretoggle.domain.Account;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import javax.xml.bind.annotation.XmlType;
 import java.util.UUID;
 
 import static org.testng.Assert.assertEquals;
@@ -21,8 +22,10 @@ public class AccountDTOTest {
         dto = new AccountDTO(account);
     }
 
-    public void shouldExposeTypeAsAccount() {
-        assertEquals(dto.getType(), Account.class.getSimpleName().toLowerCase());
+    public void shouldExposeTypeAsToggle() {
+        XmlType[] annotationsByType = AccountDTO.class.getAnnotationsByType(XmlType.class);
+        assertEquals(annotationsByType.length, 1);
+        assertEquals(annotationsByType[0].name(), "account");
     }
 
     public void shouldAllowForSettingTheName() {

@@ -19,7 +19,7 @@ import java.util.UUID;
 
 @Path(ToggleController.PATH_QUALIFIER)
 public class ToggleController {
-    public static final String PATH_QUALIFIER = "/toggle/";
+    public static final String PATH_QUALIFIER = "/" + ToggleDTO.TYPE + "/";
     private AccountService service;
 
     @POST
@@ -63,7 +63,7 @@ public class ToggleController {
     }
 
     private AccountService getService() {
-        if(service == null) {
+        if (service == null) {
             service = new AccountService();
         }
         return service;

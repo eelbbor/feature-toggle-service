@@ -2,7 +2,6 @@ package com.featuretoggle.controller;
 
 import com.featuretoggle.domain.Toggle;
 import com.featuretoggle.domain.dto.ToggleDTO;
-import com.featuretoggle.service.AccountService;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -14,58 +13,43 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.net.URI;
 import java.util.UUID;
 
 @Path(ToggleController.PATH_QUALIFIER)
-public class ToggleController {
-    public static final String PATH_QUALIFIER = "/" + ToggleDTO.TYPE + "/";
-    private AccountService service;
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
+public class ToggleController extends Controller {
+    public static final String PATH_QUALIFIER = "/toggles/";
 
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
     public Response create(ToggleDTO toggleDTO) {
         Toggle toggle = new Toggle(UUID.randomUUID(), UUID.fromString(toggleDTO.getAccountId()), "this is a dummy for now");
-        return Response.created(URI.create("toggle/" + toggle.getId())).entity(new ToggleDTO(toggle)).build();
+        return getCreatedResponse(PATH_QUALIFIER, new ToggleDTO(toggle));
     }
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
     public Response query() {
-        return createOkResponse(new Toggle(UUID.randomUUID(), UUID.randomUUID(), "response dummy"));
+        Toggle toggle = new Toggle(UUID.randomUUID(), UUID.randomUUID(), "response dummy");
+        return getOkResponse(new ToggleDTO(toggle));
     }
 
     @GET
-    @Path("{id:[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}}")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Path(ID_PATH)
     public Response query(@PathParam("id") String id) {
-        return createOkResponse(new Toggle(UUID.fromString(id), UUID.randomUUID(), "this is a dummy for now"));
+        Toggle toggle = new Toggle(UUID.fromString(id), UUID.randomUUID(), "this is a dummy for now");
+        return getOkResponse(new ToggleDTO(toggle));
     }
 
     @PUT
-    @Path("{id:[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
+    @Path(ID_PATH)
     public Response update(@PathParam("id") String id) {
-        return createOkResponse(new Toggle(UUID.fromString(id), UUID.randomUUID(), "this is a dummy for now"));
+        Toggle toggle = new Toggle(UUID.fromString(id), UUID.randomUUID(), "this is a dummy for now");
+        return getOkResponse(new ToggleDTO(toggle));
     }
 
     @DELETE
-    @Path("{id:[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}}")
+    @Path(ID_PATH)
     public Response delete(@PathParam("id") String id) {
         return Response.ok().build();
-    }
-
-    private Response createOkResponse(Toggle toggle) {
-        ToggleDTO dto = new ToggleDTO(toggle);
-        return Response.ok(dto).build();
-    }
-
-    private AccountService getService() {
-        if (service == null) {
-            service = new AccountService();
-        }
-        return service;
     }
 }

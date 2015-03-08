@@ -1,7 +1,7 @@
 package com.featuretoggle;
 
 import com.featuretoggle.db.dao.AbstractDAO;
-import org.postgresql.ds.PGSimpleDataSource;
+import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import org.testng.annotations.BeforeClass;
 
 import javax.naming.Context;
@@ -35,10 +35,12 @@ public abstract class BaseIntegrationTest {
     }
 
     private class TestDataSource implements DataSource {
-        private PGSimpleDataSource dataSource;
+//        private PGSimpleDataSource dataSource;
+        private MysqlDataSource dataSource;
 
         public TestDataSource() throws SQLException {
-            dataSource = new PGSimpleDataSource();
+//            dataSource = new PGSimpleDataSource();
+            dataSource = new MysqlDataSource();
             dataSource.setUrl(System.getProperty("testJdbcUrl"));
             dataSource.setUser(System.getProperty("testJdbcUser"));
             dataSource.setPassword(System.getProperty("testJdbcPassword"));
@@ -80,17 +82,20 @@ public abstract class BaseIntegrationTest {
 
         @Override
         public Logger getParentLogger() throws SQLFeatureNotSupportedException {
-            return dataSource.getParentLogger();
+            throw new SQLFeatureNotSupportedException();
+//            return dataSource.getParentLogger();
         }
 
         @Override
         public <T> T unwrap(Class<T> iface) throws SQLException {
-            return dataSource.unwrap(iface);
+            throw new SQLFeatureNotSupportedException();
+//            return dataSource.unwrap(iface);
         }
 
         @Override
         public boolean isWrapperFor(Class<?> iface) throws SQLException {
-            return dataSource.isWrapperFor(iface);
+            throw new SQLFeatureNotSupportedException();
+//            return dataSource.isWrapperFor(iface);
         }
     }
 }
